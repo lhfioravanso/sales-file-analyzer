@@ -7,6 +7,7 @@ import com.desafio.salesfileanalyzer.util.Constants;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class InputFileReader {
     public InputData read(Path filePath, String fileName) {
         InputData inputData = new InputData(fileName);
 
-        try (FileReader reader = new FileReader(filePath.resolve(fileName).toString());
+        try (FileReader reader = new FileReader(filePath.resolve(fileName).toString(), StandardCharsets.UTF_8);
              BufferedReader br = new BufferedReader(reader)) {
 
             String line;
