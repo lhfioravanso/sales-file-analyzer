@@ -12,7 +12,7 @@ public class DirectoryUtil {
         Path path = Paths.get(directoryPath);
 
         if (!Files.exists(path))
-            Files.createDirectory(path);
+            Files.createDirectories(path);
     }
 
 }

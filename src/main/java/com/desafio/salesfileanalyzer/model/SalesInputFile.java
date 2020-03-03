@@ -7,15 +7,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-public class InputData {
+public class SalesInputFile extends InputFile {
 
     private List<Customer> Customers;
     private List<Seller> Sellers;
     private List<Sale> Sales;
-    private String fileName;
 
-    public InputData(String fileName) {
-        this.fileName = fileName;
+    public SalesInputFile(String fileName) {
+        super.setFileName(fileName);
     }
 
     public void addCustomer(String cnpj, String name, String businessArea)
@@ -40,6 +39,28 @@ public class InputData {
             this.Sales = new ArrayList<>();
 
         this.Sales.add(new Sale(saleId, itens, salesmanName ));
+    }
+
+    public void addCustomer(Customer customer)
+    {
+        if (this.Customers == null)
+            this.Customers = new ArrayList<>();
+
+        this.Customers.add(customer);
+    }
+
+    public void addSeller(Seller seller){
+        if (this.Sellers == null)
+            this.Sellers = new ArrayList<>();
+
+        this.Sellers.add(seller);
+    }
+    public void addSale(Sale sale)
+    {
+        if (this.Sales == null)
+            this.Sales = new ArrayList<>();
+
+        this.Sales.add(sale);
     }
 
 
@@ -78,13 +99,5 @@ public class InputData {
                                 Collectors.summingDouble(Sale::getTotal)));
 
         return sumSalesBySeller.entrySet().stream().min(Comparator.comparing(Map.Entry::getValue)).get().getKey();
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 }

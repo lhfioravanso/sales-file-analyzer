@@ -2,8 +2,6 @@ package com.desafio.salesfileanalyzer.watcher;
 
 import com.desafio.salesfileanalyzer.SalesfileanalyzerApplication;
 import com.desafio.salesfileanalyzer.util.Constants;
-
-import java.io.IOException;
 import java.nio.file.*;
 
 public class DirectoryWatcher {
@@ -32,14 +30,13 @@ public class DirectoryWatcher {
                         String fileName = event.context().toString();
 
                         if (validExtension(fileName)){
-
-                            try {
-                                Thread.sleep(500);
-                            } catch(InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-                            salesfileanalyzerApplication.processFile(pathToWatch, outputPath, fileName);
+                            new Thread(() -> {
+                                try {
+                                    salesfileanalyzerApplication.processFile(pathToWatch, outputPath, fileName);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }).start();
                         }
                     }
                 }
@@ -47,10 +44,6 @@ public class DirectoryWatcher {
 
             } while (valid);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
