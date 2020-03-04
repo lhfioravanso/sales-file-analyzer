@@ -1,5 +1,6 @@
 package com.desafio.salesfileanalyzer.parser;
 
+import com.desafio.salesfileanalyzer.exception.InvalidLineDataSizeException;
 import com.desafio.salesfileanalyzer.model.Seller;
 
 public class SellerParser {
@@ -8,8 +9,14 @@ public class SellerParser {
     private static final int NAME = 2;
     private static final int SALARY = 3;
 
-    public static Seller parse(String[] line) {
-        return new Seller(line[CPF], line[NAME], Double.parseDouble(line[SALARY]));
+    private static final int LINE_LENGTH = 3;
+
+    public static Seller parse(String[] lineData) throws InvalidLineDataSizeException {
+
+        if (lineData.length != LINE_LENGTH)
+            throw new InvalidLineDataSizeException();
+
+        return new Seller(lineData[CPF], lineData[NAME], Double.parseDouble(lineData[SALARY]));
     }
 
 

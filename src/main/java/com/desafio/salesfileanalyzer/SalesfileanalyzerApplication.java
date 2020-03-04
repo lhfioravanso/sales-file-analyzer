@@ -1,6 +1,7 @@
 package com.desafio.salesfileanalyzer;
 
 import com.desafio.salesfileanalyzer.model.InputFile;
+import com.desafio.salesfileanalyzer.model.OutputFile;
 import com.desafio.salesfileanalyzer.parser.SalesFileParser;
 import com.desafio.salesfileanalyzer.reader.InputFileReader;
 import com.desafio.salesfileanalyzer.util.Constants;
@@ -46,15 +47,18 @@ public class SalesfileanalyzerApplication {
 		}
 	}
 
-	public void processFile(Path inputPath, Path outputPath, String fileName) throws Exception {
+	public void processFile(Path inputPath, Path outputPath, String fileName) {
 		System.out.println("Processando o arquivo '" + fileName + "'...");
 
 		SalesFileParser salesFileParser = new SalesFileParser();
 		InputFileReader inputFileReader = new InputFileReader(salesFileParser);
-		OutputFileWriter outputFileWriter = new OutputFileWriter();
 
 		InputFile inputFile = inputFileReader.read(inputPath, fileName);
-		//outputFileWriter.write(outputPath, inputFile);
+		String outputReport = inputFile.generateReport();
+
+		OutputFileWriter outputFileWriter = new OutputFileWriter(outputPath);
+		OutputFile outputFile = new OutputFile(fileName, outputReport);
+		outputFileWriter.write(outputFile);
 
 		System.out.println("O arquivo '" + fileName + "' foi processado com sucesso!");
 	}

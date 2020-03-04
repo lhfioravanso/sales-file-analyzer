@@ -17,30 +17,6 @@ public class SalesInputFile extends InputFile {
         super.setFileName(fileName);
     }
 
-    public void addCustomer(String cnpj, String name, String businessArea)
-    {
-        if (this.Customers == null)
-            this.Customers = new ArrayList<>();
-
-        this.Customers.add(new Customer(cnpj, name, businessArea));
-    }
-
-    public void addSeller(String cpf, String name, double salary)
-    {
-        if (this.Sellers == null)
-            this.Sellers = new ArrayList<>();
-
-        this.Sellers.add(new Seller(cpf, name, salary));
-    }
-
-    public void addSale(int saleId, List<Item> itens, String salesmanName)
-    {
-        if (this.Sales == null)
-            this.Sales = new ArrayList<>();
-
-        this.Sales.add(new Sale(saleId, itens, salesmanName ));
-    }
-
     public void addCustomer(Customer customer)
     {
         if (this.Customers == null)
@@ -55,6 +31,7 @@ public class SalesInputFile extends InputFile {
 
         this.Sellers.add(seller);
     }
+
     public void addSale(Sale sale)
     {
         if (this.Sales == null)
@@ -62,7 +39,6 @@ public class SalesInputFile extends InputFile {
 
         this.Sales.add(sale);
     }
-
 
     public int getCountCustomers()
     {
@@ -74,30 +50,63 @@ public class SalesInputFile extends InputFile {
         return this.Sellers != null ? this.Sellers.size() : 0;
     }
 
-    public int getMostExpensiveSaleId() throws Exception {
-        if (this.Sales.isEmpty()){
-            throw new Exception("Nenhuma venda encontrada!");
-        }
+    public Sale getMostExpensiveSale() {
+        Sale sale = null;
 
-        return this.Sales.
-                stream().
-                max(Comparator.comparing(Sale::getTotal)).
-                get().
-                getId();
+        if (this.Sales != null)
+            sale = this.Sales.stream().
+                    max(Comparator.comparing(Sale::getTotal)).
+                    get();
+
+        return sale;
     }
 
-    public String getWorstSeller() throws Exception {
+    public String getWorstSeller() {
         /*
          * Retorna o pior vendedor baseado no total de vendas
          */
-        if (this.Sales.isEmpty())
-            throw new Exception("Nenhuma venda encontrada!");
+        String worstSeller = null;
 
-        Map<String, Double> sumSalesBySeller =
-                Sales.stream().collect(
-                        Collectors.groupingBy(Sale::getSellerName,
-                                Collectors.summingDouble(Sale::getTotal)));
+        if (this.Sales != null) {
+            Map<String, Double> sumSalesBySeller =
+                    Sales.stream().collect(
+                            Collectors.groupingBy(Sale::getSellerName,
+                                    Collectors.summingDouble(Sale::getTotal)));
 
-        return sumSalesBySeller.entrySet().stream().min(Comparator.comparing(Map.Entry::getValue)).get().getKey();
+            worstSeller = sumSalesBySeller.entrySet().
+                    stream().min(Comparator.comparing(Map.Entry::getValue)).get().getKey();
+        }
+
+        return worstSeller;
+    }
+
+    public List<String> createOutputData() {
+        List<String> outputData = new ArrayList<>();
+
+        outputData.add("Quantidade de clientes no arquivo de entrada: " + this.getCountCustomers());
+        outputData.add("Quantidade de vendedor no arquivo de entrada: " + this.getCountSellers());
+
+        Sale mostExpensiveSale = this.getMostExpensiveSale();
+        outputData.add(String.format("ID da venda mais cara: %s",
+                mostExpensiveSale != null ? mostExpensiveSale.getId() : "Arquivo não possui vendas para calcular esta informação."));
+
+        String worstSeller = this.getWorstSeller();
+        outputData.add(String.format("O pior vendedor: %s",
+                worstSeller != null ? worstSeller : "Arquivo não possui vendas para calcular esta informação."));
+
+        return outputData;
+    }
+
+    @Override
+    public String generateReport() {
+        List<String> outputData = createOutputData();
+
+        StringBuilder sb = new StringBuilder();
+        for (String data: outputData) {
+            sb.append(data);
+            sb.append(System.getProperty("line.separator"));
+        }
+
+        return sb.toString();
     }
 }

@@ -1,6 +1,6 @@
 package com.desafio.salesfileanalyzer.model;
 
-public class InputFile {
+public abstract class InputFile {
 
     public String fileName;
 
@@ -12,4 +12,5 @@ public class InputFile {
         this.fileName = fileName;
     }
 
+    public abstract String generateReport();
 }
