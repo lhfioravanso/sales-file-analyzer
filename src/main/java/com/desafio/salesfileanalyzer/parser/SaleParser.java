@@ -14,7 +14,7 @@ public class SaleParser {
     private static final int ITENS = 2;
     private static final int SELLER_NAME = 3;
 
-    private static final int LINE_LENGTH = 3;
+    private static final int LINE_LENGTH = 4;
 
     public static Sale parse(String[] lineData) throws InvalidLineDataSizeException {
 

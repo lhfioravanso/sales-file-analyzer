@@ -9,7 +9,7 @@ public class CustomerParser {
     private static final int NAME = 2;
     private static final int BUSINESS_AREA = 3;
 
-    private static final int LINE_LENGTH = 3;
+    private static final int LINE_LENGTH = 4;
 
     public static Customer parse(String[] lineData) throws InvalidLineDataSizeException {
 

@@ -9,7 +9,7 @@ public class SellerParser {
     private static final int NAME = 2;
     private static final int SALARY = 3;
 
-    private static final int LINE_LENGTH = 3;
+    private static final int LINE_LENGTH = 4;
 
     public static Seller parse(String[] lineData) throws InvalidLineDataSizeException {
 
