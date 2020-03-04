@@ -32,6 +32,7 @@ public class DirectoryWatcher {
                         if (validExtension(fileName)){
                             new Thread(() -> {
                                 try {
+                                    preventSameFileUsage();
                                     salesfileanalyzerApplication.processFile(pathToWatch, outputPath, fileName);
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -47,6 +48,10 @@ public class DirectoryWatcher {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void preventSameFileUsage () throws InterruptedException {
+        Thread.sleep(100);
     }
 
     private static boolean validExtension(String fileName)
