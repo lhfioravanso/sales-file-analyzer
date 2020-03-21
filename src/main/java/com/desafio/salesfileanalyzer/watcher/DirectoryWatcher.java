@@ -3,8 +3,13 @@ package com.desafio.salesfileanalyzer.watcher;
 import com.desafio.salesfileanalyzer.SalesfileanalyzerApplication;
 import com.desafio.salesfileanalyzer.util.Constants;
 import java.nio.file.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DirectoryWatcher {
+
+    private static Logger logger = Logger.getLogger(DirectoryWatcher.class.getName());
+
     private Path pathToWatch;
     private Path outputPath;
 
@@ -20,7 +25,9 @@ public class DirectoryWatcher {
             pathToWatch.register(watchService,
                     StandardWatchEventKinds.ENTRY_CREATE);
 
-            boolean valid = true;
+            logger.log(Level.INFO, () -> "Observando o diretório: " + pathToWatch);
+
+            boolean valid;
             do {
                 WatchKey watchKey = watchService.take();
                 SalesfileanalyzerApplication salesfileanalyzerApplication = new SalesfileanalyzerApplication();
@@ -35,7 +42,7 @@ public class DirectoryWatcher {
                                     preventSameFileUsage();
                                     salesfileanalyzerApplication.processFile(pathToWatch, outputPath, fileName);
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    logger.log(Level.SEVERE, e.getMessage());
                                 }
                             }).start();
                         }
@@ -46,7 +53,7 @@ public class DirectoryWatcher {
             } while (valid);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 

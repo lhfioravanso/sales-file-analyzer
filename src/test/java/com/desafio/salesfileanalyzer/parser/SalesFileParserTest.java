@@ -26,11 +26,11 @@ class SalesFileParserTest {
 
         SalesInputFile file = parser.parseFile("test.dat", lines);
 
-        assertEquals(file.getCountCustomers(), 2);
-        assertEquals(file.getCountSellers(), 2);
-        assertEquals(file.getMostExpensiveSale().getId(), 10);
-        assertEquals(file.getWorstSeller(), "Paulo");
-        assertEquals(file.getFileName(), "test.dat");
+        assertEquals(2, file.getCountCustomers());
+        assertEquals(2, file.getCountSellers());
+        assertEquals(10, file.getMostExpensiveSale().getId());
+        assertEquals("Paulo", file.getWorstSeller());
+        assertEquals("test.dat", file.getFileName());
     }
 
     @Test
@@ -41,9 +41,9 @@ class SalesFileParserTest {
                         "004ç1234567891234çPedroç50000");
 
         try {
-            parser.parseFile("test.dat",lines);
+            parser.parseFile("test.dat", lines);
         } catch (InvalidLayoutException e) {
-            assertEquals(e.getMessage(), "Layout do arquivo inválido!");
+            assertEquals("Layout do arquivo inválido!", e.getMessage());
         }
     }
 
@@ -56,9 +56,9 @@ class SalesFileParserTest {
                         "001-1234567891234çPedroç50000");
 
         try {
-            parser.parseFile("test.dat",lines);
+            parser.parseFile("test.dat", lines);
         } catch (InvalidLayoutException e) {
-            assertEquals(e.getMessage(), "Layout do arquivo inválido!");
+            assertEquals("Layout do arquivo inválido!", e.getMessage());
         }
     }
 }

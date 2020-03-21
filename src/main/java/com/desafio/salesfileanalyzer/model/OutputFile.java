@@ -1,8 +1,8 @@
 package com.desafio.salesfileanalyzer.model;
 
 public class OutputFile {
-    public String fileName;
-    public String content;
+    private String fileName;
+    private String content;
 
     public OutputFile(String fileName, String content) {
         this.fileName = fileName;

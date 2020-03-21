@@ -5,6 +5,9 @@ import com.desafio.salesfileanalyzer.model.Customer;
 
 public class CustomerParser {
 
+    private CustomerParser(){
+        throw new IllegalStateException();
+    }
     private static final int CNPJ = 1;
     private static final int NAME = 2;
     private static final int BUSINESS_AREA = 3;

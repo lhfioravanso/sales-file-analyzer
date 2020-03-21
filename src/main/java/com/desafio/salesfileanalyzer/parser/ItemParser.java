@@ -5,6 +5,10 @@ import com.desafio.salesfileanalyzer.model.Item;
 
 public class ItemParser {
 
+    private ItemParser (){
+        throw new IllegalStateException();
+    }
+
     private static final int ID = 0;
     private static final int QUANTITY = 1;
     private static final int PRICE = 2;

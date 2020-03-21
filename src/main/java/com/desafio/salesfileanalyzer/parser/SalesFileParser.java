@@ -1,23 +1,20 @@
 package com.desafio.salesfileanalyzer.parser;
 
 import com.desafio.salesfileanalyzer.exception.InvalidLayoutException;
+import com.desafio.salesfileanalyzer.exception.InvalidLineDataSizeException;
 import com.desafio.salesfileanalyzer.model.SalesInputFile;
 
 import java.util.List;
 
 public class SalesFileParser implements IFileParser {
-
-    private SalesInputFile salesInputFile;
-
-    private final String SPLIT_CHAR_LINES = "ç";
-
+    private static final String SPLIT_CHAR_LINES = "ç";
     private static final String ID_SELLER = "001";
     private static final String ID_CUSTOMER = "002";
     private static final String ID_SALE = "003";
 
     @Override
-    public SalesInputFile parseFile(String fileName, List<String> lines) throws Exception {
-        salesInputFile = new SalesInputFile(fileName);
+    public SalesInputFile parseFile(String fileName, List<String> lines) throws InvalidLineDataSizeException, InvalidLayoutException {
+        SalesInputFile salesInputFile = new SalesInputFile(fileName);
 
         String[] splittedLine;
         for (String line: lines) {

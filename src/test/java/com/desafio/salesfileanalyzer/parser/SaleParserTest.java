@@ -10,26 +10,24 @@ class SaleParserTest {
 
     @Test
     void ShouldParseSuccessful() throws InvalidLineDataSizeException {
-        SaleParser parser = new SaleParser();
         String[] lineData = new String[] { "003", "10", "[1-10-100,2-30-2.50,3-40-3.10]", "Pedro"};
-        Sale sale = parser.parse(lineData);
+        Sale sale = SaleParser.parse(lineData);
 
-        assertEquals(sale.getId(), 10);
-        assertEquals(sale.getItens().size(), 3);
-        assertEquals(sale.getSellerName(), "Pedro");
-        assertEquals(sale.getItens().size(), 3);
-        assertEquals(sale.getTotal(), 1199.0);
+        assertEquals(10, sale.getId());
+        assertEquals(3, sale.getItens().size());
+        assertEquals("Pedro", sale.getSellerName());
+        assertEquals(3, sale.getItens().size());
+        assertEquals(1199.0, sale.getTotal());
     }
 
     @Test
     void ShouldParseThrowsException() {
-        SaleParser parser = new SaleParser();
         String[] lineData = new String[] { "", "", "", "", ""};
 
         try {
-            parser.parse(lineData);
+            SaleParser.parse(lineData);
         } catch (InvalidLineDataSizeException e) {
-            assertEquals(e.getMessage(), "Quantidade de registros da linha inválido!");
+            assertEquals("Quantidade de registros da linha inválido!", e.getMessage());
         }
     }
 }

@@ -2,7 +2,7 @@ package com.desafio.salesfileanalyzer.model;
 
 public abstract class InputFile {
 
-    public String fileName;
+    private String fileName;
 
     public String getFileName() {
         return fileName;

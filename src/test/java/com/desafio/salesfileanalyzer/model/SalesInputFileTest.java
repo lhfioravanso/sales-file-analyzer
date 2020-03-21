@@ -45,25 +45,25 @@ class SalesInputFileTest {
 
     @Test
     void getFileName(){
-        assertEquals(this.salesInputFile.getFileName(), "filename.dat");
+        assertEquals("filename.dat", this.salesInputFile.getFileName());
     }
     @Test
     void getCountCustomers() {
-        assertEquals(this.salesInputFile.getCountCustomers(), 2);
+        assertEquals(2, this.salesInputFile.getCountCustomers());
     }
 
     @Test
     void getCountSellers() {
-        assertEquals(this.salesInputFile.getCountSellers(), 2);
+        assertEquals(2, this.salesInputFile.getCountSellers());
     }
 
     @Test
     void getMostExpensiveSaleId() {
-        assertEquals(this.salesInputFile.getMostExpensiveSale().getId(), 10);
+        assertEquals(10, this.salesInputFile.getMostExpensiveSale().getId());
     }
 
     @Test
     void getWorstSeller() {
-        assertEquals(this.salesInputFile.getWorstSeller(), "Paulo");
+        assertEquals("Paulo", this.salesInputFile.getWorstSeller());
     }
 }

@@ -1,17 +1,14 @@
 package com.desafio.salesfileanalyzer.model;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class SalesInputFile extends InputFile {
 
-    private List<Customer> Customers;
-    private List<Seller> Sellers;
-    private List<Sale> Sales;
+    private List<Customer> customers;
+    private List<Seller> sellers;
+    private List<Sale> sales;
 
     public SalesInputFile(String fileName) {
         super.setFileName(fileName);
@@ -19,44 +16,42 @@ public class SalesInputFile extends InputFile {
 
     public void addCustomer(Customer customer)
     {
-        if (this.Customers == null)
-            this.Customers = new ArrayList<>();
+        if (this.customers == null)
+            this.customers = new ArrayList<>();
 
-        this.Customers.add(customer);
+        this.customers.add(customer);
     }
 
     public void addSeller(Seller seller){
-        if (this.Sellers == null)
-            this.Sellers = new ArrayList<>();
+        if (this.sellers == null)
+            this.sellers = new ArrayList<>();
 
-        this.Sellers.add(seller);
+        this.sellers.add(seller);
     }
 
     public void addSale(Sale sale)
     {
-        if (this.Sales == null)
-            this.Sales = new ArrayList<>();
+        if (this.sales == null)
+            this.sales = new ArrayList<>();
 
-        this.Sales.add(sale);
+        this.sales.add(sale);
     }
 
     public int getCountCustomers()
     {
-        return this.Customers != null ? this.Customers.size() : 0;
+        return this.customers != null ? this.customers.size() : 0;
     }
 
     public int getCountSellers()
     {
-        return this.Sellers != null ? this.Sellers.size() : 0;
+        return this.sellers != null ? this.sellers.size() : 0;
     }
 
     public Sale getMostExpensiveSale() {
         Sale sale = null;
 
-        if (this.Sales != null)
-            sale = this.Sales.stream().
-                    max(Comparator.comparing(Sale::getTotal)).
-                    get();
+        if (!this.sales.isEmpty())
+            sale = this.sales.stream().max(Comparator.comparing(Sale::getTotal)).orElse(null);
 
         return sale;
     }
@@ -67,14 +62,14 @@ public class SalesInputFile extends InputFile {
          */
         String worstSeller = null;
 
-        if (this.Sales != null) {
+        if (!this.sales.isEmpty()) {
             Map<String, Double> sumSalesBySeller =
-                    Sales.stream().collect(
+                    sales.stream().collect(
                             Collectors.groupingBy(Sale::getSellerName,
                                     Collectors.summingDouble(Sale::getTotal)));
 
-            worstSeller = sumSalesBySeller.entrySet().
-                    stream().min(Comparator.comparing(Map.Entry::getValue)).get().getKey();
+            worstSeller = Objects.requireNonNull(sumSalesBySeller.entrySet().
+                    stream().min(Map.Entry.comparingByValue()).orElse(null)).getKey();
         }
 
         return worstSeller;

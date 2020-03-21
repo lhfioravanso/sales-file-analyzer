@@ -20,18 +20,18 @@ class SaleTest {
 
     @Test
     void getId() {
-        assertEquals(this.sale.getId(), 1);
+        assertEquals(1, this.sale.getId());
     }
 
     @Test
     void setId() {
         this.sale.setId(2);
-        assertEquals(this.sale.getId(), 2);
+        assertEquals(2, this.sale.getId());
     }
 
     @Test
     void getItensCount() {
-        assertEquals(this.sale.getItens().size(), 1);
+        assertEquals(1, this.sale.getItens().size());
     }
 
     @Test
@@ -41,23 +41,23 @@ class SaleTest {
         itens.add(new Item(1, 3, 15));
         this.sale.setItens(itens);
 
-        assertEquals(this.sale.getItens().size(), 2);
-        assertEquals(this.sale.getItens().get(1).getPrice(), 15);
+        assertEquals(2, this.sale.getItens().size());
+        assertEquals(15, this.sale.getItens().get(1).getPrice());
     }
 
     @Test
     void getSellerName() {
-        assertEquals(this.sale.getSellerName(), "Pedro");
+        assertEquals("Pedro", this.sale.getSellerName());
     }
 
     @Test
     void setSellerName() {
         this.sale.setSellerName("Test");
-        assertEquals(this.sale.getSellerName(), "Test");
+        assertEquals("Test", this.sale.getSellerName());
     }
 
     @Test
     void getTotal() {
-        assertEquals(this.sale.getTotal(), 1000);
+        assertEquals(1000, this.sale.getTotal());
     }
 }

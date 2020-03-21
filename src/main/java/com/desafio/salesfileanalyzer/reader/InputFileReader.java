@@ -9,9 +9,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InputFileReader {
 
+    private static Logger logger = Logger.getLogger(InputFileReader.class.getName());
     private IFileParser fileParser;
 
     public InputFileReader(IFileParser parser){
@@ -30,11 +33,11 @@ public class InputFileReader {
                 lines.add(line);
             }
 
-            if(lines.size() > 0){
+            if(!lines.isEmpty()){
                 inputFile = fileParser.parseFile(fileName, lines);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage());
         }
 
         return inputFile;

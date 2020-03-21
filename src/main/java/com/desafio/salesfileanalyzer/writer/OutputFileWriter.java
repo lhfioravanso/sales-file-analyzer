@@ -3,12 +3,16 @@ package com.desafio.salesfileanalyzer.writer;
 import com.desafio.salesfileanalyzer.model.OutputFile;
 import com.desafio.salesfileanalyzer.util.Constants;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OutputFileWriter {
 
     private Path outputPath;
+    private static Logger logger = Logger.getLogger(OutputFileWriter.class.getName());
 
     public OutputFileWriter(Path outputPath){
         this.outputPath = outputPath;
@@ -22,7 +26,7 @@ public class OutputFileWriter {
              BufferedWriter bw = new BufferedWriter(writer)) {
                 bw.write(outputFile.getContent());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 

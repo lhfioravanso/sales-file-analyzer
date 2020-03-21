@@ -7,6 +7,10 @@ import java.nio.file.Paths;
 
 public class DirectoryUtil {
 
+    private DirectoryUtil() {
+        throw new IllegalStateException();
+    }
+
     public static void createIfNotExists(String directoryPath) throws IOException {
 
         Path path = Paths.get(directoryPath);

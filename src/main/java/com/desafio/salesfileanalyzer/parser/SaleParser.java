@@ -10,6 +10,10 @@ import java.util.List;
 
 public class SaleParser {
 
+    private SaleParser() {
+        throw new IllegalStateException();
+    }
+
     private static final int ID = 1;
     private static final int ITENS = 2;
     private static final int SELLER_NAME = 3;

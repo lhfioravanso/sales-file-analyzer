@@ -10,14 +10,15 @@ import com.desafio.salesfileanalyzer.watcher.DirectoryWatcher;
 import com.desafio.salesfileanalyzer.writer.OutputFileWriter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @SpringBootApplication
 public class SalesfileanalyzerApplication {
 
+	private static Logger logger = Logger.getLogger(SalesfileanalyzerApplication.class.getName());
 	private static String inputPath;
 	private static String outputPath;
 
@@ -42,13 +43,13 @@ public class SalesfileanalyzerApplication {
 		try {
 			DirectoryUtil.createIfNotExists(inputPath);
 			DirectoryUtil.createIfNotExists(outputPath);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Não foi possível criar os diretórios de entrada/saida.", e);
 		}
 	}
 
 	public void processFile(Path inputPath, Path outputPath, String fileName) {
-		System.out.println("Processando o arquivo '" + fileName + "'...");
+		logger.log(Level.INFO, () -> "Processando o arquivo " + fileName + " ...");
 
 		SalesFileParser salesFileParser = new SalesFileParser();
 		InputFileReader inputFileReader = new InputFileReader(salesFileParser);
@@ -60,6 +61,6 @@ public class SalesfileanalyzerApplication {
 		OutputFile outputFile = new OutputFile(fileName, outputReport);
 		outputFileWriter.write(outputFile);
 
-		System.out.println("O arquivo '" + fileName + "' foi processado com sucesso!");
+		logger.log(Level.INFO, () -> "O arquivo '"+ fileName +"' foi processado com sucesso!");
 	}
 }

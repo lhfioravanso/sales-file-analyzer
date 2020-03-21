@@ -16,34 +16,34 @@ class SellerTest {
 
     @Test
     void testGetCpf() {
-        assertEquals(this.seller.getCpf(), "1234567891234");
+        assertEquals("1234567891234", this.seller.getCpf());
     }
 
     @Test
     void testSetCpf() {
         this.seller.setCpf("12345");
-        assertEquals(this.seller.getCpf(), "12345");
+        assertEquals("12345", this.seller.getCpf());
     }
 
     @Test
     void getName() {
-        assertEquals(this.seller.getName(), "Pedro");
+        assertEquals("Pedro", this.seller.getName());
     }
 
     @Test
     void setName() {
         this.seller.setName("Test");
-        assertEquals(this.seller.getName(), "Test");
+        assertEquals("Test", this.seller.getName());
     }
 
     @Test
     void getSalary() {
-        assertEquals(this.seller.getSalary(), 50000);
+        assertEquals(50000, this.seller.getSalary());
     }
 
     @Test
     void setSalary() {
         this.seller.setSalary(1000);
-        assertEquals(this.seller.getSalary(), 1000);
+        assertEquals(1000, this.seller.getSalary());
     }
 }

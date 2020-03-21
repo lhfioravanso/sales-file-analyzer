@@ -5,6 +5,10 @@ import com.desafio.salesfileanalyzer.model.Seller;
 
 public class SellerParser {
 
+    private SellerParser(){
+        throw new IllegalStateException();
+    }
+
     private static final int CPF = 1;
     private static final int NAME = 2;
     private static final int SALARY = 3;

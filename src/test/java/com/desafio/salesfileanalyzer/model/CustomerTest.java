@@ -15,35 +15,35 @@ class CustomerTest {
 
     @Test
     void getCnpj() {
-        assertEquals(this.customer.getCnpj(), "2345675434544345");
+        assertEquals("2345675434544345", this.customer.getCnpj());
     }
 
     @Test
     void setCnpj() {
         this.customer.setCnpj("12345");
-        assertEquals(this.customer.getCnpj(), "12345");
+        assertEquals("12345", this.customer.getCnpj());
     }
 
     @Test
     void getName() {
-        assertEquals(this.customer.getName(), "Jose da Silva");
+        assertEquals("Jose da Silva", this.customer.getName());
     }
 
     @Test
     void setName() {
         this.customer.setName("Teste");
-        assertEquals(this.customer.getName(), "Teste");
+        assertEquals("Teste", this.customer.getName());
     }
 
     @Test
     void getBusinessArea() {
-        assertEquals(this.customer.getBusinessArea(), "Rural");
+        assertEquals("Rural", this.customer.getBusinessArea());
     }
 
     @Test
     void setBusinessArea() {
         this.customer.setBusinessArea("TI");
-        assertEquals(this.customer.getBusinessArea(), "TI");
+        assertEquals("TI", this.customer.getBusinessArea());
     }
 
 }
